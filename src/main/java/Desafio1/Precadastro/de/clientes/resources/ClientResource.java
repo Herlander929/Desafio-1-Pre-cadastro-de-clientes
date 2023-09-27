@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Optional;
+
 @RestController
 @RequestMapping(value = "/clientes")
 public class ClientResource {
@@ -17,8 +19,8 @@ public class ClientResource {
     private ClientService service;
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Client> find(@PathVariable Integer id) {
-        Client obj = service.find(id);
+    public ResponseEntity<Optional<Client>> find(@PathVariable Integer id) {
+        Optional<Client> obj = service.find(id);
         return ResponseEntity.ok().body(obj);
 
     }
