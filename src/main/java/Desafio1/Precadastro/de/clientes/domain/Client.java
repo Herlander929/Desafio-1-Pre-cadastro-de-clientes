@@ -11,10 +11,11 @@ import jakarta.validation.constraints.Size;
 
 @Entity
 public class Client implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @Size(min = 4, max = 4, message = "MCC deve ter exatamente 4 caracteres.")
     private String mcc; // "Merchant Category Code"
@@ -67,11 +68,11 @@ public class Client implements Serializable {
         }
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

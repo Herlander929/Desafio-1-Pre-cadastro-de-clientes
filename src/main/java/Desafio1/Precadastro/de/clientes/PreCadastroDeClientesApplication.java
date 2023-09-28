@@ -41,22 +41,22 @@ public class PreCadastroDeClientesApplication implements CommandLineRunner {
 				null, // CPF do Contato (não usado para PJ)
 				null // Email da Pessoa (não usado para PJ)
 		);
-
-		// Instanciando um cliente Pessoa Física (CPF)
-		Client clienteFisico = new Client(
-				ClientType.PESSOAFISICA, // Tipo de cliente (Pessoa Física)
-				"5432", // MCC
-				"João Pessoa", // Nome da Pessoa
-				null, // Razão Social (não usado para PF)
-				null, // Nome do Contato
-				"joao@pessoa.com", // Email do Contato
-				null, // CNPJ (não usado para PF)
-				"12345678900", // CPF
-				null, // CPF do Contato (não usado para PF)
-				null // Email da Empresa (não usado para PF)
-		);
-
-		clientRepository.saveAll(Arrays.asList(clienteFisico,clienteJuridico));
+//
+//		// Instanciando um cliente Pessoa Física (CPF)
+//		Client clienteFisico = new Client(
+//				ClientType.PESSOAFISICA, // Tipo de cliente (Pessoa Física)
+//				"5432", // MCC
+//				"João Pessoa", // Nome da Pessoa
+//				null, // Razão Social (não usado para PF)
+//				null, // Nome do Contato
+//				"joao@pessoa.com", // Email do Contato
+//				null, // CNPJ (não usado para PF)
+//				"12345678900", // CPF
+//				null, // CPF do Contato (não usado para PF)
+//				null // Email da Empresa (não usado para PF)
+//		);
+//
+		clientRepository.saveAll(Arrays.asList(clienteJuridico));
 
 	}
 
