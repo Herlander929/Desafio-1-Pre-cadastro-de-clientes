@@ -6,10 +6,12 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
+import lombok.Data;
 
 import java.io.Serializable;
 
 
+@Data
 public class ClientDto implements Serializable {
     private Integer id;
 
@@ -27,16 +29,16 @@ public class ClientDto implements Serializable {
     @Size(max = 50)
     private String nomeContato;
 
-    @NotEmpty(message = "Preenchimento obrigatório")
-    @Email(message = "Email inválido")
-    @Pattern(regexp = "^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$")
+//    @NotEmpty(message = "Preenchimento obrigatório")
+//    @Email(message = "Email inválido")
+//    //@Pattern(regexp = "^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$")
     private String emailContato;
 
     private String cpfcontato;
 
-    @NotEmpty(message = "Preenchimento obrigatório")
-    @Email(message = "Email inválido")
-    @Pattern(regexp = "^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$")
+//    @NotEmpty(message = "Preenchimento obrigatório")
+//    @Email(message = "Email inválido")
+//    //@Pattern(regexp = "^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$")
     private String emailPessoa;
 
     private Integer tipoCliente;
@@ -48,26 +50,21 @@ public class ClientDto implements Serializable {
 
 
     public ClientDto(Client obj) {
-        if (obj.getTipoCliente() != null) {
-            tipoCliente = obj.getTipoCliente().getCod();
+            tipoCliente = obj.getTipoCliente();
             id = obj.getId();
             mcc = obj.getMcc();
-
-            if (tipoCliente == ClientType.PESSOAFISICA.getCod()) {
-                name = obj.getName();
-                cpf = obj.getCpf();
-                emailPessoa = obj.getEmailPessoa();
-            } else if (tipoCliente == ClientType.PESSOAJURIDICA.getCod()) {
-                razaoSocial = obj.getRazaoSocial();
-                cnpj = obj.getCnpj();
-                nomeContato = obj.getNomeContato();
-                emailContato = obj.getEmailContato();
-                cpfcontato = obj.getCpfcontato();
+            name = obj.getName();
+            cpf = obj.getCpf();
+            emailPessoa = obj.getEmailPessoa();
+            razaoSocial = obj.getRazaoSocial();
+            cnpj = obj.getCnpj();
+            nomeContato = obj.getNomeContato();
+            emailContato = obj.getEmailContato();
+            cpfcontato = obj.getCpfcontato();
             }
 
-        }
 
-    }
+
 
 
     public Integer getId() {
