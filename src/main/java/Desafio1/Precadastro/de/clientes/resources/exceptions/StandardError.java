@@ -15,6 +15,9 @@ public class StandardError implements Serializable {
         this.timeStamp = timeStamp;
     }
 
+    public StandardError(Long timestamp, Integer status, String error, String message, String path) {
+    }
+
     public Integer getStatus() {
         return status;
     }
