@@ -35,6 +35,10 @@ git clone https://github.com/Duduudz/adaSala2.git
 # abra a pasta /backend alguma IDE como o Intelij/VsCode/Eclipse
 # instale as dependencias do projeto e rode a aplicacao
 # a API ira ser executada no endereco http://localhost:8080
+
+Para ver a documentação no Swagger:
+1- Subir a aplicação
+2- Acessar : http://localhost:8080/swagger-ui/
 ```
 
 
