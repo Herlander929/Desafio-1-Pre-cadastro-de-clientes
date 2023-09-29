@@ -5,13 +5,13 @@ import Desafio1.Precadastro.de.clientes.domain.Client;
 import Desafio1.Precadastro.de.clientes.services.ClientService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -28,13 +28,14 @@ public class ClientResource {
 
     }
 
-    @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Void> insert(@Valid @RequestBody Client obj) {
-        //Cliente obj = service.fromDTO(objDto);
+    @PostMapping(value = "/insert")
+    public ResponseEntity<Client> insert(@Valid @RequestBody Client obj) {
+        //Client obj = service.fromDTO(objDto);
         obj = service.insert(obj);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().
                 path("/{id}").buildAndExpand(obj.getId()).toUri();
         return ResponseEntity.created((uri)).build();
+        //return response;
     }
 
 //    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
@@ -45,7 +46,7 @@ public class ClientResource {
 //        return ResponseEntity.noContent().build();
 //
 //    }
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT , consumes = "application/json")
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT , consumes = "application/json", produces = "application/json")
     public ResponseEntity<Void> update(@RequestBody Client obj, @PathVariable Integer id){
         obj.setId(id);
         obj = service.update(obj);
@@ -62,9 +63,19 @@ public class ClientResource {
     @RequestMapping( method = RequestMethod.GET)
     public ResponseEntity<List<ClientDto>> findAll() {
         List<Client> list = service.findAll();
-        List<ClientDto> listDto = list.stream().map(ClientDto::new).collect(Collectors.toList());
-        //List<ClientDto> listDto = list.stream().map(obj -> new ClientDto(obj)).collect(Collectors.toList());
+        //List<ClientDto> listDto = list.stream().map((Client t) -> new ClientDto()).collect(Collectors.toList());
+        List<ClientDto> listDto = list.stream().map(obj -> new ClientDto(obj)).collect(Collectors.toList());
         return ResponseEntity.ok().body(listDto);
 
+    }
+    @RequestMapping( value = "/page", method = RequestMethod.GET)
+    public ResponseEntity<Page<ClientDto>> findPage(
+            @RequestParam(value = "page", defaultValue = "0") Integer page,
+            @RequestParam(value = "linesPerPage", defaultValue = "24")Integer linesPerPage,
+            @RequestParam(value = "orderBy", defaultValue = "name")String orderBy,
+            @RequestParam(value = "direction", defaultValue = "ASC")String direction){
+        Page<Client> list = service.findPage(page, linesPerPage, orderBy, direction);
+        Page<ClientDto> listDto = list.map((Client t) -> new ClientDto());
+        return ResponseEntity.ok().body(listDto);
     }
 }
